@@ -41,7 +41,10 @@ const Profile = () => {
     };
 
     useEffect(() => {
-        fetchProfile();
+        const timer = setTimeout(() => {
+            fetchProfile();
+        }, 0);
+        return () => clearTimeout(timer);
     }, []);
 
     const handleProfileChange = (e) => {

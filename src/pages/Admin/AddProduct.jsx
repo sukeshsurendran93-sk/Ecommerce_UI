@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -64,7 +63,7 @@ const AddProduct = () => {
                 alert("Product added successfully!");
                 navigate('/')
             })
-            .catch((err) => {
+            .catch(() => {
                 alert("Failed to add product");
             }).finally(() => {
                 setIsLoading(false);

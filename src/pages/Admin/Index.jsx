@@ -1,20 +1,19 @@
-import axios from "axios";
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteProduct, getProducts } from "../../redux/thunks/productThunks";
 
 const ProductList = () => {
     const dispatch = useDispatch();
-    const { products, loading, error } = useSelector((state) => state.product)
+    const { products } = useSelector((state) => state.product)
+
+    const fetchProducts = useCallback(() => {
+        dispatch(getProducts());
+    }, [dispatch]);
 
     useEffect(() => {
         fetchProducts();
-    }, []);
-
-    const fetchProducts = () => {
-        dispatch(getProducts());
-    }
+    }, [fetchProducts]);
 
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("All");

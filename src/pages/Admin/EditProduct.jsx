@@ -31,19 +31,22 @@ const EditProduct = () => {
 
     useEffect(() => {
         if (product) {
-            setExistingImage(product.image);
-            setFormData({
-                name: product.name || "",
-                price: product.price || "",
-                category: product.category || "",
-                stock: product.stock || "",
-                description: product.description || "",
-                image: null,
-            });
+            const timer = setTimeout(() => {
+                setExistingImage(product.image);
+                setFormData({
+                    name: product.name || "",
+                    price: product.price || "",
+                    category: product.category || "",
+                    stock: product.stock || "",
+                    description: product.description || "",
+                    image: null,
+                });
 
-            if (product.image) {
-                setImagePreview(`${import.meta.env.VITE_BASE_URL}${product.image}`);
-            }
+                if (product.image) {
+                    setImagePreview(`${import.meta.env.VITE_BASE_URL}${product.image}`);
+                }
+            }, 0);
+            return () => clearTimeout(timer);
         }
     }, [product]);
 

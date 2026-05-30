@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import api from "../api/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -12,17 +11,16 @@ const Orders = () => {
     const { orders, loading } = useSelector((state) => state.order);
     const { role } = useSelector((state) => state.auth);
 
-    const fetchOrders = async () => {
-        if (role === 'user') {
-            dispatch(myOrders());
-        } else {
-            dispatch(allorders());
-        }
-    };
-
     useEffect(() => {
+        const fetchOrders = async () => {
+            if (role === 'user') {
+                dispatch(myOrders());
+            } else {
+                dispatch(allorders());
+            }
+        };
         fetchOrders();
-    }, []);
+    }, [dispatch, role]);
 
     const getStatusColor = (status) => {
         switch (status) {

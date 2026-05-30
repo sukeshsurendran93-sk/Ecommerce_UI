@@ -18,7 +18,7 @@ const ProductDetails = () => {
 
     useEffect(() => {
         dispatch(getProduct(id));
-    }, [id]);
+    }, [id, dispatch]);
 
     if (loading) {
         return (

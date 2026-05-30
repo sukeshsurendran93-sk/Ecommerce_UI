@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/thunks/authThunk";
 
 const Login = () => {
-  const { role, token, error, isLoading } = useSelector((state) => state.auth);
+  const { token, error } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

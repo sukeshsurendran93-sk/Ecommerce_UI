@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { register } from "../redux/thunks/authThunk";
 
 const Register = () => {
-    const { role, token, error, isLoading } = useSelector((state) => state.auth);
+    const { token, error, isLoading } = useSelector((state) => state.auth);
 
     const [formData, setFormData] = useState({ name: "", email: "", password: "", confirmPassword: "" });
+    const [localError, setLocalError] = useState("");
     const Navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -18,13 +19,14 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLocalError("");
 
         if (formData.password !== formData.confirmPassword) {
-            setError("Passwords do not match");
+            setLocalError("Passwords do not match");
             return;
         }
         if (!formData.name || !formData.email || !formData.password) {
-            setError("Please fill all the fields");
+            setLocalError("Please fill all the fields");
             return;
         }
 
@@ -45,9 +47,9 @@ const Register = () => {
                         Create Account
                     </h2>
 
-                    {error && (
+                    {(localError || error) && (
                         <div className="bg-red-500/10 border border-red-500 text-red-400 text-center py-3 rounded-2xl mb-6">
-                            {error}
+                            {localError || error}
                         </div>
                     )}
 
